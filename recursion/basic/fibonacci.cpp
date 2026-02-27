@@ -1,0 +1,23 @@
+#include<iostream>
+using namespace std;
+    int fibo(int n)
+    {
+        if(n==0 || n==1)
+        {
+            return n;
+        }
+        return fibo(n-1)+fibo(n-2);
+    }
+int main()
+{
+    int num;
+    cout<<"Enter the number:: ";
+    cin>>num;
+    cout<<"Fibonacci series upto "<< num <<" is ::";
+    for(int i=0;i<num;i++)
+    {
+        int op=fibo(i);
+        cout<<" "<<op<<" ";
+    }
+return 0;
+}
