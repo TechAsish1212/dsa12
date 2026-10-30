@@ -92,6 +92,22 @@ void insertkthPosition(Node *&head, int k, int val)
     ptr->next = newNode;
 }
 
+// insert after kth position
+void insertAfterKthPosition(Node *&head,int k,int val){
+    if(k<1){
+        cout<<"Invalid Position";
+        return;
+    }
+    Node *ptr=head;
+    for(int i=1;ptr!=nullptr&&i<k;i++){
+        ptr=ptr->next;
+    }
+
+    Node *newNode=new Node(val);
+    newNode->next=ptr->next;
+    ptr->next=newNode;
+}
+
 int main()
 {
 
@@ -142,6 +158,13 @@ int main()
             cout << "Enter the Value:: ";
             cin >> val;
             insertkthPosition(head, k, val);
+            break;
+         case 5:
+            cout << "Enter the position:: ";
+            cin >> k;
+            cout << "Enter the Value:: ";
+            cin >> val;
+            insertAfterKthPosition(head, k, val);
             break;
 
         default:
