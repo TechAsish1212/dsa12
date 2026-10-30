@@ -193,6 +193,28 @@ void deleteHead(Node *&head){
     delete ptr;
 }
 
+// delete tail
+void deleteTail(Node *&head){
+    if(head==nullptr){
+        cout<<"List is Empty\n";
+        return;
+    }
+
+    if(head->next==nullptr){
+        delete head;
+        head=nullptr;
+        return;
+    }
+
+    Node *ptr=head;
+    while(ptr->next->next!=nullptr){
+        ptr=ptr->next;
+    }
+
+    delete ptr->next;
+    ptr->next=nullptr;
+}
+
 int main()
 {
 
@@ -270,6 +292,9 @@ int main()
             break;
         case 9:
             deleteHead(head);
+            break;
+        case 10:
+            deleteTail(head);
             break;
 
         default:
