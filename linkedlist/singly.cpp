@@ -148,6 +148,39 @@ void insertBeforeKthPosition(Node *&head, int k, int val)
     ptr->next = newNode;
 }
 
+// find kth value
+void findkthValue(Node *&head,int k){
+    if(k<1){
+        cout<<"Invalid Position";
+        return;
+    }
+    Node *ptr=head;
+    for(int i=1;ptr!=nullptr&&i<k;i++){
+        ptr=ptr->next;
+    }
+    if(ptr==nullptr){
+        cout<<"Invalid Position";
+    }else{
+        cout<<"Kth Value :: "<<ptr->data<<endl;
+    }
+}
+
+// search by value
+void searchByValue(Node *&head,int val){
+    int pos=1;
+    Node *ptr=head;
+
+    while(ptr!=nullptr){
+        if(ptr->data==val){
+            cout<<"Position :: "<<pos;
+            return;
+        }
+        ptr=ptr->next;
+        pos++;
+    }
+    cout<<"Value is not found";
+}
+
 int main()
 {
 
@@ -212,6 +245,16 @@ int main()
             cout << "Enter the Value:: ";
             cin >> val;
             insertBeforeKthPosition(head, k, val);
+            break;
+        case 7:
+            cout<<"Enter the position:: ";
+            cin>>k;
+            findkthValue(head,k);
+            break;
+        case 8:
+            cout<<"Enter searching Value:: ";
+            cin>>val;
+            searchByValue(head,val);
             break;
 
         default:
