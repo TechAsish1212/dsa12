@@ -181,6 +181,18 @@ void searchByValue(Node *&head,int val){
     cout<<"Value is not found";
 }
 
+// delete head
+void deleteHead(Node *&head){
+    if(head==nullptr){
+        cout<<"List is Empty\n";
+        return;
+    }
+
+    Node *ptr=head;
+    head=ptr->next;
+    delete ptr;
+}
+
 int main()
 {
 
@@ -255,6 +267,9 @@ int main()
             cout<<"Enter searching Value:: ";
             cin>>val;
             searchByValue(head,val);
+            break;
+        case 9:
+            deleteHead(head);
             break;
 
         default:
