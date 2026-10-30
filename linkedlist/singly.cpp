@@ -93,19 +93,59 @@ void insertkthPosition(Node *&head, int k, int val)
 }
 
 // insert after kth position
-void insertAfterKthPosition(Node *&head,int k,int val){
-    if(k<1){
-        cout<<"Invalid Position";
+void insertAfterKthPosition(Node *&head, int k, int val)
+{
+    if (k < 1)
+    {
+        cout << "Invalid Position";
         return;
     }
-    Node *ptr=head;
-    for(int i=1;ptr!=nullptr&&i<k;i++){
-        ptr=ptr->next;
+    Node *ptr = head;
+    for (int i = 1; ptr != nullptr && i < k; i++)
+    {
+        ptr = ptr->next;
     }
 
-    Node *newNode=new Node(val);
-    newNode->next=ptr->next;
-    ptr->next=newNode;
+    if (ptr == nullptr)
+    {
+        cout << "Invalid position\n";
+        return;
+    }
+
+    Node *newNode = new Node(val);
+    newNode->next = ptr->next;
+    ptr->next = newNode;
+}
+
+// insert before kth position
+void insertBeforeKthPosition(Node *&head, int k, int val)
+{
+    if (k < 1)
+    {
+        cout << "Invalid Position";
+        return;
+    }
+
+    if (k == 1)
+    {
+        insertHead(head, val);
+        return;
+    }
+
+    Node *ptr = head;
+    for (int i = 1; ptr != nullptr && i < k - 1; i++)
+    {
+        ptr = ptr->next;
+    }
+    if (ptr == nullptr || ptr->next == nullptr)
+    {
+        cout << "Invalid position\n";
+        return;
+    }
+
+    Node *newNode = new Node(val);
+    newNode->next = ptr->next;
+    ptr->next = newNode;
 }
 
 int main()
@@ -159,12 +199,19 @@ int main()
             cin >> val;
             insertkthPosition(head, k, val);
             break;
-         case 5:
+        case 5:
             cout << "Enter the position:: ";
             cin >> k;
             cout << "Enter the Value:: ";
             cin >> val;
             insertAfterKthPosition(head, k, val);
+            break;
+        case 6:
+            cout << "Enter the position:: ";
+            cin >> k;
+            cout << "Enter the Value:: ";
+            cin >> val;
+            insertBeforeKthPosition(head, k, val);
             break;
 
         default:
