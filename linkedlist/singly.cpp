@@ -63,6 +63,32 @@ void insertTail(Node *&head, int val)
     ptr->next = newNode;
 }
 
+// insert multiple value together
+void insertMultiple(Node *&head, int num)
+{
+    int val;
+    for (int i = 1; i <= num; i++)
+    {
+        cout << "Enter the value " << i << ": ";
+        cin >> val;
+
+        Node *newNode = new Node(val);
+        if (head == nullptr)
+        {
+            head = newNode;
+        }
+        else
+        {
+            Node *ptr = head;
+            while (ptr->next != nullptr)
+            {
+                ptr = ptr->next;
+            }
+            ptr->next = newNode;
+        }
+    }
+}
+
 // insert at kth position
 void insertkthPosition(Node *&head, int k, int val)
 {
@@ -149,70 +175,114 @@ void insertBeforeKthPosition(Node *&head, int k, int val)
 }
 
 // find kth value
-void findkthValue(Node *&head,int k){
-    if(k<1){
-        cout<<"Invalid Position";
+void findkthValue(Node *&head, int k)
+{
+    if (k < 1)
+    {
+        cout << "Invalid Position";
         return;
     }
-    Node *ptr=head;
-    for(int i=1;ptr!=nullptr&&i<k;i++){
-        ptr=ptr->next;
+    Node *ptr = head;
+    for (int i = 1; ptr != nullptr && i < k; i++)
+    {
+        ptr = ptr->next;
     }
-    if(ptr==nullptr){
-        cout<<"Invalid Position";
-    }else{
-        cout<<"Kth Value :: "<<ptr->data<<endl;
+    if (ptr == nullptr)
+    {
+        cout << "Invalid Position";
+    }
+    else
+    {
+        cout << "Kth Value :: " << ptr->data << endl;
     }
 }
 
 // search by value
-void searchByValue(Node *&head,int val){
-    int pos=1;
-    Node *ptr=head;
+void searchByValue(Node *&head, int val)
+{
+    int pos = 1;
+    Node *ptr = head;
 
-    while(ptr!=nullptr){
-        if(ptr->data==val){
-            cout<<"Position :: "<<pos;
+    while (ptr != nullptr)
+    {
+        if (ptr->data == val)
+        {
+            cout << "Position :: " << pos;
             return;
         }
-        ptr=ptr->next;
+        ptr = ptr->next;
         pos++;
     }
-    cout<<"Value is not found";
+    cout << "Value is not found";
 }
 
 // delete head
-void deleteHead(Node *&head){
-    if(head==nullptr){
-        cout<<"List is Empty\n";
+void deleteHead(Node *&head)
+{
+    if (head == nullptr)
+    {
+        cout << "List is Empty\n";
         return;
     }
 
-    Node *ptr=head;
-    head=ptr->next;
+    Node *ptr = head;
+    head = ptr->next;
     delete ptr;
 }
 
 // delete tail
-void deleteTail(Node *&head){
-    if(head==nullptr){
-        cout<<"List is Empty\n";
+void deleteTail(Node *&head)
+{
+    if (head == nullptr)
+    {
+        cout << "List is Empty\n";
         return;
     }
 
-    if(head->next==nullptr){
+    if (head->next == nullptr)
+    {
         delete head;
-        head=nullptr;
+        head = nullptr;
         return;
     }
 
-    Node *ptr=head;
-    while(ptr->next->next!=nullptr){
-        ptr=ptr->next;
+    Node *ptr = head;
+    while (ptr->next->next != nullptr)
+    {
+        ptr = ptr->next;
     }
 
     delete ptr->next;
-    ptr->next=nullptr;
+    ptr->next = nullptr;
+}
+
+// delete kth node
+void deletekthNode(Node *&head, int k)
+{
+    if (k < 1 || head == nullptr)
+    {
+        cout << "Invalid Position or Empty";
+        return;
+    }
+    if (k == 1)
+    {
+        deleteHead(head);
+        return;
+    }
+    Node *ptr = head;
+    for (int i = 1; ptr != nullptr && i < k - 1; i++)
+    {
+        ptr = ptr->next;
+    }
+    if (ptr->next == nullptr || ptr == nullptr)
+    {
+        cout << "Invalid Position";
+        return;
+    }
+
+    Node *temp = ptr->next;
+    ptr->next = temp->next;
+    delete temp;
 }
 
 int main()
@@ -238,6 +308,7 @@ int main()
         cout << "12. Delete After Kth Position\n";
         cout << "13. Delete Before Kth Position\n";
         cout << "14. Delete by Value\n";
+        cout << "15. Insert Multiple Value\n";
         cout << "0.  Exit\n";
 
         cout << "Enter Choice:: ";
@@ -281,20 +352,30 @@ int main()
             insertBeforeKthPosition(head, k, val);
             break;
         case 7:
-            cout<<"Enter the position:: ";
-            cin>>k;
-            findkthValue(head,k);
+            cout << "Enter the position:: ";
+            cin >> k;
+            findkthValue(head, k);
             break;
         case 8:
-            cout<<"Enter searching Value:: ";
-            cin>>val;
-            searchByValue(head,val);
+            cout << "Enter searching Value:: ";
+            cin >> val;
+            searchByValue(head, val);
             break;
         case 9:
             deleteHead(head);
             break;
         case 10:
             deleteTail(head);
+            break;
+        case 11:
+            cout<<"Enter the position:: ";
+            cin>>k;
+            deletekthNode(head, k);
+            break;
+        case 15:
+            cout << "How many nodes? ";
+            cin >> val;
+            insertMultiple(head,val);
             break;
 
         default:
