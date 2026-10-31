@@ -285,6 +285,58 @@ void deletekthNode(Node *&head, int k)
     delete temp;
 }
 
+// Delete After Kth Position
+void deleteAfterkthPos(Node *&head, int pos)
+{
+    if (pos < 1)
+    {
+        cout << "Invalid Position or Empty";
+        return;
+    }
+    Node *ptr = head;
+    for (int i = 1; ptr != nullptr && i < pos; i++)
+    {
+        ptr = ptr->next;
+    }
+    if (ptr == nullptr || ptr->next == nullptr)
+    {
+        cout << "No node exists after this position\n";
+        return;
+    }
+    Node *temp = ptr->next;
+    ptr->next = temp->next;
+    delete temp;
+}
+
+// delete before kth value
+void deleteBeforekthPos(Node *&head, int pos)
+{
+    if (pos <= 1 || head == nullptr)
+    {
+        cout << "Invalid Position or Empty";
+        return;
+    }
+    if (pos == 2)
+    {
+        deleteHead(head);
+        return;
+    }
+
+    Node *ptr = head;
+    for (int i = 1; ptr != nullptr && i < pos - 2; i++)
+        ptr = ptr->next;
+
+    if (ptr == nullptr || ptr->next == nullptr ||
+        ptr->next->next == nullptr)
+    {
+        cout << "Invalid position\n";
+        return;
+    }
+    Node *temp = ptr->next;
+    ptr->next = temp->next;
+    delete temp;
+}
+
 int main()
 {
 
@@ -307,7 +359,7 @@ int main()
         cout << "11. Delete Kth Node\n";
         cout << "12. Delete After Kth Position\n";
         cout << "13. Delete Before Kth Position\n";
-        cout << "14. Delete by Value\n";
+        // cout << "14. Delete by Value\n";
         cout << "15. Insert Multiple Value\n";
         cout << "0.  Exit\n";
 
@@ -368,14 +420,24 @@ int main()
             deleteTail(head);
             break;
         case 11:
-            cout<<"Enter the position:: ";
-            cin>>k;
+            cout << "Enter the position:: ";
+            cin >> k;
             deletekthNode(head, k);
+            break;
+        case 12:
+            cout << "Enter the position:: ";
+            cin >> k;
+            deleteAfterkthPos(head, k);
+            break;
+        case 13:
+            cout << "Enter the position:: ";
+            cin >> k;
+            deleteBeforekthPos(head, k);
             break;
         case 15:
             cout << "How many nodes? ";
             cin >> val;
-            insertMultiple(head,val);
+            insertMultiple(head, val);
             break;
 
         default:
